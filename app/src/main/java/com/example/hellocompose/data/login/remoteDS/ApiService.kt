@@ -26,4 +26,12 @@ interface ApiService {
     @PUT("BaseCrmApi/getToken")
     suspend fun getToken(@Body tokenRequest: TokenRequest):Response<Token>
 
+    @FormUrlEncoded
+    @POST(Companion.REQUEST_REFRESH_TOKEN)
+    fun getAuthenticationToken(@Field params: HashMap<String, String>) :
+            retrofit2.Call<AuthTokenResponse>
+
+    companion object {
+        private const val REQUEST_REFRESH_TOKEN = "/oauth/token"
+    }
 }
