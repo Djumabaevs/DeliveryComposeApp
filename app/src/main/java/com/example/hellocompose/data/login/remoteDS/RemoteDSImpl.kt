@@ -30,6 +30,10 @@ class RemoteDSImpl(val apiService: ApiService) : RemoteDS {
     }
 
     override suspend fun getToken(phoneNumber: String, smsCode: String): Result<Token> {
+        return Result.Loading
+    }
+
+  /*  override suspend fun getToken(phoneNumber: String, smsCode: String): Result<Token> {
         val tokenRes = apiService.getToken(TokenRequest(clientName = phoneNumber, password = smsCode))
 
         if (tokenRes.isSuccessful) {
@@ -45,7 +49,7 @@ class RemoteDSImpl(val apiService: ApiService) : RemoteDS {
             return (Result.Error(ResponseIsNotSuccessfulException("Пользователь не найден")))
         }
 
-    }
+    }*/
 }
 
 //interface safeCall {}
@@ -67,3 +71,4 @@ suspend fun <T> Response<T>.ifSuccessR(onSuccess: suspend (T) -> Unit = {}): Res
         }
     }
 }
+

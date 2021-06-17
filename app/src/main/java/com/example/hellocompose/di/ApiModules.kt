@@ -37,7 +37,7 @@ val apiModules = module {
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(90, TimeUnit.SECONDS)
-            .authenticator(TokenAuthenticator())               //added authenticator
+//            .authenticator(TokenAuthenticator())               //added authenticator
             .build()
     }
     single<Retrofit> {

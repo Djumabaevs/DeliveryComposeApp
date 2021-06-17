@@ -49,7 +49,7 @@ fun createBottomNavBar(
 ) {
     BottomNavigation(backgroundColor = bottomNavBackColor) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+        val currentRoute = navBackStackEntry?.arguments?.getString(navBackStackEntry?.destination?.route)
         items.forEach { screen ->
             val bottomNavigationItemModifier = if (currentRoute == screen.route) {
                 Modifier.background(selectedItemBackColor)
