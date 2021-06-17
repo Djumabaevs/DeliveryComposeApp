@@ -19,7 +19,7 @@ class TokenAuthenticator (
 ) : Authenticator {
 
     private val appContext = context.applicationContext
-    private val userPreferences =
+    private val userPreferences =UserPreferences()
 
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {

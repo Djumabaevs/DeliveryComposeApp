@@ -1,53 +1,46 @@
 package com.example.hellocompose.data.login.remoteDS
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.clear
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
-import androidx.datastore.preferences.createDataStore
+import androidx.datastore.preferences.preferencesDataStore
+import com.example.hellocompose.data.login.remoteDS.UserPreferences.PreferencesKeys.ACCESS_TOKEN
+import com.example.hellocompose.data.login.remoteDS.UserPreferences.PreferencesKeys.REFRESH_TOKEN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class UserPreferences @Inject constructor(context: Context) {
+class UserPreferences(val context: Context, USER_PREFERENCES_NAME: String) {
 
-    private val applicationContext = context.applicationContext
-    private val dataStore: DataStore<Preferences>
-
-    init {
-        dataStore = applicationContext.createDataStore(
-            name = "my_data_store"
-        )
-    }
+    private val Context.dataStore by preferencesDataStore(
+        name = USER_PREFERENCES_NAME
+    )
 
     val accessToken: Flow<String?>
-        get() = dataStore.data.map { preferences ->
-            preferences[ACCESS_TOKEN]
+        get() = context.dataStore.data.map { preferences ->
+            ACCESS_TOKEN
         }
 
     val refreshToken: Flow<String?>
-        get() = dataStore.data.map { preferences ->
-            preferences[REFRESH_TOKEN]
+        get() = context.dataStore.data.map { preferences ->
+            REFRESH_TOKEN
         }
 
     suspend fun saveAccessTokens(accessToken: String, refreshToken: String) {
-        dataStore.edit { preferences ->
-            preferences[ACCESS_TOKEN] = accessToken
-            preferences[REFRESH_TOKEN] = refreshToken
+        context.dataStore.edit { preferences ->
+            ACCESS_TOKEN = accessToken
+            REFRESH_TOKEN = refreshToken
         }
     }
 
     suspend fun clear() {
-        dataStore.edit { preferences ->
+        context.dataStore.edit { preferences ->
             preferences.clear()
         }
     }
 
-    companion object {
-        private val ACCESS_TOKEN = preferencesKey<String>("key_access_token")
-        private val REFRESH_TOKEN = preferencesKey<String>("key_refresh_token")
+     object PreferencesKeys {
+        var ACCESS_TOKEN = "key_access_token"
+        var REFRESH_TOKEN = "key_refresh_token"
     }
+
 
 }
