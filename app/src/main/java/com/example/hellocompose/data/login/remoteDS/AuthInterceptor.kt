@@ -11,6 +11,7 @@ import okhttp3.Request
 import okhttp3.Response
 
 
+/*
 
 internal class AuthInterceptor(val apiService: ApiService,val job :Deferred<String>) : Interceptor {
 
@@ -62,3 +63,4 @@ internal class AuthInterceptor(val apiService: ApiService,val job :Deferred<Stri
             this.apply { header("Authorization", "Bearer $token") }
 
 }
+*/

@@ -48,6 +48,9 @@ class RemoteDSImpl(val apiService: ApiService) : RemoteDS {
     }
 }
 
+//interface safeCall {}
+
+
 suspend fun <T> Response<T>.ifSuccessR(onSuccess: suspend (T) -> Unit = {}): Result<T> {
     headers()
     return when {
@@ -63,5 +66,4 @@ suspend fun <T> Response<T>.ifSuccessR(onSuccess: suspend (T) -> Unit = {}): Res
             (Result.Error(ResponseIsNotSuccessfulException("Пользователь не найден")))
         }
     }
-
 }
