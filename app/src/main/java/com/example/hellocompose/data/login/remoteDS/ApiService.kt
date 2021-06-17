@@ -26,6 +26,12 @@ interface ApiService {
     @PUT("BaseCrmApi/getToken")
     suspend fun getToken(@Body tokenRequest: TokenRequest):Response<Token>
 
+    //added
+    @POST("BaseCrmApi/refreshToken")
+    suspend fun refreshAccessToken(
+        @Field("refresh_token") refreshToken: String?
+    ): Token
+
  /*   @FormUrlEncoded
     @POST(Companion.REQUEST_REFRESH_TOKEN)
     fun getAuthenticationToken(@Field params: HashMap<String, String>) :

@@ -6,6 +6,7 @@ import com.example.hellocompose.data.login.model.Token
 import com.example.hellocompose.data.login.model.TokenRequest
 import com.example.hellocompose.data.util.UserPreferencesSerializer
 import com.example.hellocompose.ui.util.Result
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -15,8 +16,8 @@ import javax.inject.Inject
 
 class TokenAuthenticator (
     context: Context,
-    private val tokenApi: ApiService
-) : Authenticator {
+    private val tokenApi: TokenRefreshApi
+) : Authenticator, BaseRepository(tokenApi) {
 
     private val userPreferences =UserPreferences(context,"Bask")
 
@@ -38,8 +39,8 @@ class TokenAuthenticator (
     }
 
     private suspend fun getUpdatedToken(): Result<Token> {
-        val refreshedToken  = userPreferences.refreshToken
-        return  tokenApi.getToken(refreshedToken)
+        val refreshedToken  = userPreferences.refreshToken.first()
+        return  safeApiCall {tokenApi.refreshAccessToken(refreshedToken)}
 
     }
 
