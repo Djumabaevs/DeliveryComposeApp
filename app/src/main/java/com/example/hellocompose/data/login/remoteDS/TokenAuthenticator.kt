@@ -18,8 +18,7 @@ class TokenAuthenticator (
     private val tokenApi: ApiService
 ) : Authenticator {
 
-    private val appContext = context.applicationContext
-    private val userPreferences =UserPreferences()
+    private val userPreferences =UserPreferences(context,"Bask")
 
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {
@@ -38,9 +37,9 @@ class TokenAuthenticator (
         }
     }
 
-    private suspend fun getUpdatedToken(): Resource<TokenResponse> {
-        val refreshToken = userPreferences.refreshToken.first()
-        return safeApiCall { tokenApi.refreshAccessToken(refreshToken) }
+    private suspend fun getUpdatedToken(): Result<Token> {
+        return userPreferences.refreshToken
+
     }
 
 
