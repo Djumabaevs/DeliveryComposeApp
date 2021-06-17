@@ -1,5 +1,6 @@
 package com.example.hellocompose.di
 
+import android.content.Context
 import com.example.hellocompose.data.login.remoteDS.ApiService
 import com.example.hellocompose.data.login.remoteDS.TokenAuthenticator
 import com.google.gson.Gson
@@ -36,7 +37,7 @@ val apiModules = module {
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(90, TimeUnit.SECONDS)
-//            .authenticator(TokenAuthenticator())               //added authenticator
+            .authenticator(TokenAuthenticator())               //added authenticator
             .build()
     }
     single<Retrofit> {

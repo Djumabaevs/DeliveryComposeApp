@@ -23,13 +23,13 @@ class TokenAuthenticator (
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {
             when (val tokenResponse = getUpdatedToken()) {
-                is Result.Success<String> -> {
+                is Result.Success -> {
                     userPreferences.saveAccessTokens(
-                        tokenResponse.value.access_token!!,
-                        tokenResponse.value.refresh_token!!
+                        tokenResponse.data.accessToken,
+                        tokenResponse.data.refreshToken
                     )
                     response.request.newBuilder()
-                        .header("Authorization", "Bearer ${tokenResponse.value.access_token}")
+                        .header("Authorization", "Bearer ${tokenResponse.data.accessToken}")
                         .build()
                 }
                 else -> null
@@ -38,7 +38,8 @@ class TokenAuthenticator (
     }
 
     private suspend fun getUpdatedToken(): Result<Token> {
-        return userPreferences.refreshToken
+        val refreshedToken  = userPreferences.refreshToken
+        return  tokenApi.getToken(refreshedToken)
 
     }
 
