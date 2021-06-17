@@ -9,20 +9,12 @@ class TokenAuthenticator : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         val updatedToken = getUpdatedToken()
         return response.request.newBuilder()
-            .header(ApiClient.HEADER_AUTHORIZATION, updatedToken)
+            .header("Authorization", updatedToken)
             .build()
     }
 
-    private fun getUpdatedToken() : String {
-        val requestParams = HashMap<String, String>()
-
-
-        val authTokenResponse = ApiClient.ApiService.getAuthenticationToken(requestParams)
-            .execute().body()!!
-        val newToken = "${authTokenResponse.tokenType} ${authTokenResponse.accessToken}"
-        SharedPreferenceUtils.saveString(Constants.PreferenceKeys.USER_ACCESS_TOKEN, newToken)
-
-        return  newToken
+    private fun getUpdatedToken() {
+   
     }
 
 
