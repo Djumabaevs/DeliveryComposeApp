@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 //                                onLoginClicl = { a, b, c, d, e ->
 //                                    mainViewModel.login(a, b, c, d, e)
 //                                }
-//                            mainViewModel
+                            vm = mainViewModel,
                                 setDecorFitsSystemWindows = {
                                     WindowCompat.setDecorFitsSystemWindows(
                                         window,
@@ -71,7 +71,8 @@ class MainActivity : ComponentActivity() {
 fun Greeting(
     navigationState: NavigationState,
     setDecorFitsSystemWindows: () -> Unit = {},
-    removeDecorFitsSystemWindows: () -> Unit = {}
+    removeDecorFitsSystemWindows: () -> Unit = {},
+    vm :MainViewModel,
 //    loading: Boolean,
 //    showError: String,
 //    onLoginClicl: (
@@ -91,6 +92,7 @@ fun Greeting(
 //            Log.d("Nurs", "Nurs loading ${loading}")
 
             loginScreen(
+                vm,
                 setDecorFitsSystemWindows
 //                loading = loading,
 //                showError = showError,

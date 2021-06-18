@@ -39,12 +39,13 @@ fun loginScreen(
 //        email: String,
 //        dateOfBirth: String
 //    ) -> Unit
+    vm :MainViewModel,
 
     setDecorFitsSystemWindows:()->Unit = {}
 ) {
     setDecorFitsSystemWindows()
 
-    val vm = getViewModel<MainViewModel>()
+    //val vm = getViewModel<MainViewModel>()
     val loading: Boolean by vm.showLoading.observeAsState(false)
     val showError: Pair<Boolean,String> by vm.showError.observeAsState(initial =  Pair(false,""))
 
