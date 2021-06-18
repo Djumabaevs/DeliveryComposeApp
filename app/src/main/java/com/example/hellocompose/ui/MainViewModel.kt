@@ -31,13 +31,6 @@ class MainViewModel(
                 entryPointLiveData.postValue(Event(it))
             }
         }
-        viewModelScope.launch {
-            withContext(dispatcher) {
-                local.isUserSavedToLocalStorage().collect {
-                    Log.d("Nurs", "flow from datastore ${it}")
-                }
-            }
-        }
     }
 
     fun makeSuspendCall() {

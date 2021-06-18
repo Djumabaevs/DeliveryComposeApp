@@ -14,12 +14,12 @@ import okhttp3.Response
 import okhttp3.Route
 import javax.inject.Inject
 
-class TokenAuthenticator (
+class TokenAuthenticator(
     context: Context,
     private val tokenApi: TokenRefreshApi
 ) : Authenticator, BaseRepository(tokenApi) {
 
-    private val userPreferences =UserPreferences(context,"Bask")
+    private val userPreferences = UserPreferences(context, "Bask")
 
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {
@@ -39,11 +39,12 @@ class TokenAuthenticator (
     }
 
     private suspend fun getUpdatedToken(): Result<Token> {
-        val refreshedToken  = userPreferences.refreshToken.first()
-        return  safeApiCall {tokenApi.refreshAccessToken(refreshedToken)}
+        val refreshedToken = userPreferences.refreshToken.first()
+        return tokenApi.refreshAccessToken(refreshedToken).ifSuccessR()
+
+//        return  safeApiCall {tokenApi.refreshAccessToken(refreshedToken)}
 
     }
-
 
 
 }

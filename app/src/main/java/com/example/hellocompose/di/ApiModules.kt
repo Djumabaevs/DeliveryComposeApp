@@ -2,7 +2,9 @@ package com.example.hellocompose.di
 
 import android.content.Context
 import com.example.hellocompose.data.login.remoteDS.ApiService
+import com.example.hellocompose.data.login.remoteDS.RemoteDataSource
 import com.example.hellocompose.data.login.remoteDS.TokenAuthenticator
+import com.example.hellocompose.data.login.remoteDS.TokenRefreshApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -37,7 +39,11 @@ val apiModules = module {
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(90, TimeUnit.SECONDS)
-//            .authenticator(TokenAuthenticator())               //added authenticator
+            .authenticator(TokenAuthenticator(get(), Retrofit.Builder()
+                .baseUrl(RemoteDataSource.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(TokenRefreshApi::class.java)))               //added authenticator
             .build()
     }
     single<Retrofit> {

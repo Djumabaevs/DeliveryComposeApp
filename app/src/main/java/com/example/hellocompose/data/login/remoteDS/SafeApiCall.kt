@@ -9,8 +9,8 @@ interface  SafeApiCall {
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
     ): Result<T> {
-        return withContext(Dispatchers.IO) {
-            try {
+//        return withContext(Dispatchers.IO) {
+            return try {
                 Result.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
@@ -22,6 +22,6 @@ interface  SafeApiCall {
                     }
                 }
             }
-        }
+//        }
     }
 }

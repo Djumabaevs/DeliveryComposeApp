@@ -141,23 +141,23 @@ fun loginScreen(
                         }
                     }
 
-                    var birthDate by remember { mutableStateOf("") }
+                    var birthDate by remember { mutableStateOf("31/03/1994") }
                     var birthDateErrorText by remember { mutableStateOf("") }
                     var birthDateContainsError by remember { mutableStateOf(false) }
                     val birthDateColor =
                         if (birthDateContainsError) Color.Red else Color.Unspecified
-                    birthDateButton(
-                        birthDateColor,
-                        birthDateErrorText,
-                        color,
-                        birthDate,
-                        birthDateContainsError,
-                        onDateSelected = {
-                            birthDate = it.toString()
-                            birthDateErrorText = ""
-                            birthDateContainsError = false
-                        }
-                    )
+//                    birthDateButton(
+//                        birthDateColor,
+//                        birthDateErrorText,
+//                        color,
+//                        birthDate,
+//                        birthDateContainsError,
+//                        onDateSelected = {
+//                            birthDate = it.toString()
+//                            birthDateErrorText = ""
+//                            birthDateContainsError = false
+//                        }
+//                    )
 
                     val context = LocalContext.current.resources
                     registerButton(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
