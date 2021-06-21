@@ -26,7 +26,8 @@ interface ApiService {
     @PUT("BaseCrmApi/getToken")
     suspend fun getToken(@Body tokenRequest: TokenRequest):Response<Token>
 
-
+    @POST("BaseCrmApi/refreshToken")
+    suspend fun refreshToken(@Body tokenRequest: TokenRequest): Response<Token>
 
  /*   //added
     @POST("BaseCrmApi/refreshToken")
