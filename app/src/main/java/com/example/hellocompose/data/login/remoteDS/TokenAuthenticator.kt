@@ -36,17 +36,18 @@ class TokenAuthenticator(
                 else -> null
             }
         }
-    }
+    }x
 
     private suspend fun getUpdatedToken(): Result<Token> {
         val refreshedToken = userPreferences.refreshToken.first()
         return tokenApi.refreshAccessToken(refreshedToken).ifSuccessR()
+    }
 
 //        return  safeApiCall {tokenApi.refreshAccessToken(refreshedToken)}
 
     }
 
 
-}
+
 
 
